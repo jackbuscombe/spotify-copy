@@ -9,12 +9,14 @@ function Song({ order, track }) {
 	const isPlaying = useStore((state) => state.isPlaying);
 	const setIsPlaying = useStore((state) => state.setIsPlaying);
 
-	const playSong = () => {
+	const playSong = async () => {
 		setCurrentTrackId(track.track.id);
 		setIsPlaying(true);
-		spotifyApi.play({
-			uris: [track.track.uri],
-		});
+		spotifyApi
+			.play({
+				uris: [track.track.uri],
+			})
+			.catch((error) => alert("You are not connected to a device.\nYou can connect by playing something on Spotify on your computer or phone.", error));
 	};
 
 	return (
